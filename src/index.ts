@@ -1,7 +1,7 @@
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import express, { type Request, type Response } from "express";
 
-import { getServer } from "./server.js";
+import { getServer, type HeadersLike } from "./server.js";
 import { config } from "./config.js";
 
 const app = express();
@@ -17,7 +17,7 @@ app.post("/mcp", async (req: Request, res: Response) => {
       transport.close();
     });
 
-    const server = getServer();
+    const server = getServer(req.headers as HeadersLike);
     await server.connect(transport);
 
     await transport.handleRequest(req, res, req.body);
