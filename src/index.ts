@@ -8,13 +8,6 @@ import { config } from "./config.js";
 const app = express();
 app.use(express.json());
 
-app.use(cors({
-  origin: '*', // not '*' if using credentials
-  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
-  allowedHeaders: ['X-RESEND-API-KEY'],
-}));
-app.options('*', cors());
-
 app.post("/mcp", async (req: Request, res: Response) => {
   try {
     const transport = new StreamableHTTPServerTransport({
